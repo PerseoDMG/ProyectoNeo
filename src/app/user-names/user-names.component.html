@@ -1,0 +1,34 @@
+<div class="container mt-5">
+
+    <h1 class=" text-center mb-2">Usuarios</h1>
+
+    <!--Seccion de Alertas: toma el mensaje (nombre de usuario) que se registro en la función seeUser y lo muestra en pantalla una vez "alert" cambia a true-->
+    <div *ngIf="alert" class="alert alert-primary d-flex justify-content-between" role="alert">
+        <h4>{{alertMsg}}</h4>
+        <button class="btn btn-danger btn-sm" (click)="dismiss()">x</button>
+    </div>
+
+    <!--Sección de Lista de usuarios: Este código muestra los nombres de los usuarios registrados en el arreglo users, cada uno muestra 2 botones que llaman a las funciones "show" y "seeUser" -->
+    <ul class="list-group">
+        <li class=" list-group-item d-flex justify-content-between " *ngFor="let nameUser of users ">
+            {{nameUser}}
+            <button class="btn btn-outline-danger " (click)="show(nameUser) ">Eliminar</button>
+            <!--Este botón en particular muestra las alertas con el nombre del usuario en la parte superior del código-->
+            <button class="btn btn-outline-success " (click)="seeUser(nameUser) ">Ver</button>
+        </li>
+    </ul>
+
+    <!--Alerta que se muestra para confirmar la eliminación de un usuario-->
+    <div *ngIf="confirm" class="mt-5 alert-danger d-flex" role="alert">
+        <h4>¿Seguro que desea eliminar el usuario: {{alertMsg}}?</h4>
+        <button class="btn btn-success btn-sm ml-5" (click)="cancel()">Cancelar</button>
+        <button class="btn btn-danger btn-sm ml-5" (click)="deleteUser(alertMsg)">Eliminar</button>
+    </div>
+
+    <!-- Sección de formulario en el cual se nos permite añadir un nombre en el arreglo de usuarios y mostrarlo en pantalla mediante la función addUser -->
+    <form class="mt-5" (submit)="addUser(newUser) ">
+        <input class="form-control " type="text " name="newUser " placeholder="Añadir usuario" #newUser>
+        <button class="btn btn-primary btn-block mt-1" type="submit ">Añadir Usuario</button>
+    </form>
+
+</div>

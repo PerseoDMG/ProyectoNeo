@@ -1,0 +1,45 @@
+<table class="table text-center">
+    <!--Tabla que muestra los datos de los usuarios-->
+    <tr class=" text-primary">
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Ciudad</th>
+        <th>Teléfono</th>
+    </tr>
+
+    <tr *ngFor="let post of posts">
+        <th *ngIf="post.id!=3">{{post.id}}</th>
+        <th *ngIf="post.id!=3">{{post.name}}</th>
+        <th *ngIf="post.id!=3">{{post.email}}</th>
+        <th *ngIf="post.id!=3">{{post.address.city}}</th>
+        <th *ngIf="post.id!=3">{{post.phone}}</th>
+        <button *ngIf="post.id!=3" class="btn btn-danger mr-4" (click)="show(post.id)">Eliminar</button>
+        <button *ngIf="post.id!=3" class="btn btn-success" (click)="editUser(post.id)">Editar</button>
+    </tr>
+</table>
+
+<!--Formulario emergente para editar usuario, no permite campos vacíos-->
+<div *ngIf="edit">
+    <h3 class=" text-center">EDITAR</h3>
+    <form class="mt-5 container" (submit)="userSuccess(newUserName,newUserEmail,newUserAddress,newUserPhone)">
+        <input class="form-control mb-4" type="text" name="newUserName " placeholder="Nombre del usuario" #newUserName>
+        <input class="form-control mb-4" type="email" name="newUserName " placeholder="Correo del usuario" #newUserEmail>
+        <input class="form-control mb-4" type="text" name="newUserAddres " placeholder="Ciudad del usuario" #newUserAddress>
+        <input class="form-control mb-4" type="tel" name="newUserPhone " placeholder="Telefono del usuario" #newUserPhone>
+        <button class="btn btn-primary mt-1" type="submit ">Editar Usuario</button>
+    </form>
+</div>
+
+<!--Alerta emergente para confirmar la eliminación del usuario-->
+<div *ngIf="confirm" class="d-flex justify-content-center">
+    <h4>¿Seguro que desea eliminar el usuario?</h4>
+    <button class="btn btn-danger btn-sm ml-5" (click)="deleteUser(idDelete)">Eliminar</button>
+    <button class="btn btn-success btn-sm ml-5" (click)="cancel()">Cancelar</button>
+</div>
+
+<!--Alerta emergente para el aviso de que no se permiten campos vacíos-->
+<div *ngIf="error" class="alert alert-danger d-flex justify-content-between">
+    <h3>Todos los campos son requeridos</h3>
+    <button class="btn btn-danger btn-sm" (click)="dismiss()">x</button>
+</div>
